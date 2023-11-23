@@ -18,4 +18,18 @@ const User = sequelize.define('user', {
   },
 });
 
-module.exports = User;
+// Function to insert data into the 'users' table
+async function insertUserData(userData) {
+  try {
+    const newUser = await User.create(userData);
+    return newUser.toJSON();
+  } catch (error) {
+    console.error('Error inserting user:', error);
+    throw error;
+  }
+}
+
+module.exports = {
+  User,
+  insertUserData,
+};
