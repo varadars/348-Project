@@ -29,7 +29,23 @@ async function insertUserData(userData) {
   }
 }
 
+// Function to delete a user by primary key
+async function deleteUserById(userId) {
+  try {
+    const deletedUser = await User.destroy({
+      where: {
+        id: userId,
+      },
+    });
+    return deletedUser; // Returns the number of rows deleted (0 or 1)
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   User,
   insertUserData,
+  deleteUserById,
 };

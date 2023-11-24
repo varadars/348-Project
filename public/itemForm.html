@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-    <title>Home</title>
+    <title>Navigation Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="itemForm.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -15,26 +15,20 @@
 
 </head>
 <body>
-    <h1>home</h1>
-    <p>by jim</p>
-    <button class="select">select a mode</button>
-    <div class="columns">
-        <div class="column">
-            <button onclick="navigateTo('shopList.html')" class="shop">
-                <img src="./assets/cat.png"> shopping list
-            </button>
-            <button onclick="navigateTo('page2.html')" class="dash">
-                <img src="./assets/cat.png"> dashboard
-            </button>
-        </div>
-        <div class="column">
-            <button onclick="navigateTo('page4.html')" class="store">
-                <img src="./assets/cat.png"> in-store mode
-            </button>
-            <button onclick="navigateTo('page5.html')" class="trip">
-                <img src="./assets/cat.png"> trip tracker
-            </button>
-        </div>
+    <div class="container">
+        <h1>add new item</h1>
+        <form id="item-form">
+            <label for="item-name">Item Name:</label>
+            <input class="select" type="text" id="item-name" name="item_name" required>
+
+            <label for="unit">Unit:</label>
+            <input class = "select" type="text" id="unit" name="unit" required>
+
+            <label for="min-viable-quantity">Min Viable Quantity:</label>
+            <input class="select" type="number" id="min-viable-quantity" name="min_viable_quantity" required>
+
+            <button type="submit">Add Item</button>
+        </form>
     </div>
     
     <script>

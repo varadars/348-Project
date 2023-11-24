@@ -5,10 +5,7 @@ const Item = sequelize.define('Item', {
   item_name: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  most_recent_unit_price: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
+    unique: true,
   },
   unit: {
     type: DataTypes.STRING,
@@ -18,6 +15,14 @@ const Item = sequelize.define('Item', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  on_grocery_list: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false, // Default value for the boolean column
+  },
+  last_edited_for_list: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  }
 });
 
 async function insertItemData(itemData) {
@@ -28,7 +33,29 @@ async function insertItemData(itemData) {
       console.error('Error inserting item:', error);
       throw error;
     }
+}
+
+async function checkIfItemExists(itemName) {
+  try {
+    const item = await Item.findOne({
+      where: {
+        item_name: itemName,
+      },
+    });
+
+    // If item is found, it exists
+    if (item) {
+      console.log(`Item "${itemName}" exists.`);
+      return true;
+    } else {
+      console.log(`Item "${itemName}" does not exist.`);
+      return false;
+    }
+  } catch (error) {
+    console.error('Error checking item existence:', error);
+    throw error;
   }
+}
   
 // Sync the model with the database
 sequelize.sync();
@@ -36,4 +63,5 @@ sequelize.sync();
 module.exports = {
     Item,
     insertItemData,
+    checkIfItemExists,
 };
