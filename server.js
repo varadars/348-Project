@@ -5,8 +5,8 @@ const port = process.env.PORT || 3000;
 const db = require('./db/db');
 const bodyParser = require('body-parser');
 
-const { Item, insertItemData, checkIfItemExists } = require('./models/item');
-const { getAllUsers } = require('./db/manual');
+const { Item, insertItemData, checkIfItemExists, updateItemOnGroceryList } = require('./models/item');
+const { shopList, shopListStore } = require('./db/manual');
 const sequelize = require('./db/sequelize');
 
 
@@ -17,13 +17,13 @@ app.get('/api/data', async (req, res) => {
   try {
 
     // Using Sequelize model to fetch users
-    const sequelizeUsers = await Item.findAll();
+    //const sequelizeUsers = await Item.findAll();
 
     // Using manual query function to fetch users
-    //const manualQueryUsers = await getAllUsers();
+    const manualQueryUsers = await shopList();
 
     //console.log(sequelizeUsers)
-    res.json(sequelizeUsers);
+    res.json(manualQueryUsers);
   } catch (err) {
     console.error('Error fetching data:', err);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -43,17 +43,35 @@ app.get('/api/check-item/:itemName', async (req, res) => {
   }
 });
 
+app.put('/api/update-grocery-list/:itemName', async (req, res) => {
+  const itemName = req.params.itemName;
+  const onGroceryListValue = req.body.onGroceryList;
 
-app.delete('/api/users/:userId', async (req, res) => {
   try {
-    const userId = req.params.userId;
-    //const deletedUser = await deleteUserById(userId);
-    res.json({ success: deletedUser > 0 });
+    const result = await updateItemOnGroceryList(itemName, onGroceryListValue);
+
+    if (result) {
+      res.status(200).json({ success: true, message: `Item "${itemName}" updated on grocery list.` });
+    } else {
+      res.status(404).json({ success: false, message: `Item "${itemName}" not found or not updated.` });
+    }
   } catch (error) {
-    console.error('Error deleting user:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error updating item on grocery list:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+
+// app.delete('/api/users/:userId', async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//     //const deletedUser = await deleteUserById(userId);
+//     res.json({ success: deletedUser > 0 });
+//   } catch (error) {
+//     console.error('Error deleting user:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

@@ -8,25 +8,27 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 insertButton.addEventListener('click', async function() {
-  await pushToDB();
-  await renderList();
+  await addItem();
 });
 
 inputFieldEl.addEventListener("keypress", async function(event) {
   if(event.key === "Enter"){
-    await pushToDB();
-    await renderList();
+    await addItem();
   }
 });
 
-async function pushToDB(){
+async function addItem(){
+  await newItemForm(inputFieldEl.value);
+  inputFieldEl.value = "";
+}
+
+async function pushToDB(data){
   try {
-    await newItemForm(inputFieldEl.value);
-    
     const itemDataforInsert = {
-      item_name: inputFieldEl.value,
-      unit: "items",
-      min_viable_quantity: 3,
+      item_name: data.itemName,
+      unit: data.unit,
+      min_viable_quantity: data.quant,
+      on_grocery_list: true,
     };
 
     inputFieldEl.value = "";
@@ -49,15 +51,24 @@ async function pushToDB(){
   }
 }
 
-async function deleteItemFromList(itemId) {
+async function addOrRemoveFromGL(itemName, onGroceryListValue) {
   try {
-    const response = await fetch(`/api/users/${itemId}`, {
-      method: 'DELETE',
+    const response = await fetch(`/api/update-grocery-list/${itemName}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ onGroceryList: onGroceryListValue }),
     });
-    const result = await response.json();
-    console.log('User deletion result:', result);
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result.message);
+    } else {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }
   } catch (error) {
-    console.error('Error deleting user:', error);
+    console.error('Error updating grocery list status:', error);
   }
 }
 
@@ -84,10 +95,10 @@ async function renderList() {
           
           listItemEl.addEventListener("dblclick", function() {
             // Use a valid and unique identifier for each user
-            let userId = data[i]["id"];
+            let item_name = data[i]["item_name"];
 
             // Use the correct path for deletion
-            deleteUser(userId);
+            addOrRemoveFromGL(item_name, 0);
 
             //remove the list item
             listItemEl.remove();
@@ -116,13 +127,19 @@ async function newItemForm(itemName){
     const data = await response.json();
 
     if (data.exists) {
-      console.log("update value")
+      await addOrRemoveFromGL(itemName,1);
+      renderList();
     } else {
-      navigateTo('itemForm.html')
+      const formPageURL = `itemForm.html?variableName=${encodeURIComponent(itemName)}`;
+      const formWindow = window.open(formPageURL, 'Form Page');
+      window.pushToDB = async function(unit, quant) {
+        await pushToDB({itemName, unit, quant});
+        renderList();
+      }
     }
   } catch (error) {
     console.error('Error checking item existence:', error);
-    responseElement.textContent = 'Error checking item existence.';
+    //responseElement.textContent = 'Error checking item existence.';
   }
 }
 
@@ -138,8 +155,3 @@ function getRelativeDate(dateFromRow) {
   return weekday[day.getDay()];
 }
 
-function navigateTo(page) {
-  // Redirect to the selected page
-  window.location.href = page;
-}
-  

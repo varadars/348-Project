@@ -17,25 +17,18 @@
 <body>
     <div class="container">
         <h1>add new item</h1>
+        <p id="var"></p>
         <form id="item-form">
-            <label for="item-name">Item Name:</label>
-            <input class="select" type="text" id="item-name" name="item_name" required>
-
-            <label for="unit">Unit:</label>
+            <label for="unit">Units ('boxes'):</label>
             <input class = "select" type="text" id="unit" name="unit" required>
 
-            <label for="min-viable-quantity">Min Viable Quantity:</label>
+            <label for="min-viable-quantity">Average Quantity:</label>
             <input class="select" type="number" id="min-viable-quantity" name="min_viable_quantity" required>
 
-            <button type="submit">Add Item</button>
+            <button id="add-btn" type="submit">Add Item</button>
         </form>
     </div>
     
-    <script>
-        function navigateTo(page) {
-            // Redirect to the selected page
-            window.location.href = page;
-        }
-    </script>
+    <script src="./itemForm.js" type="module"></script>
 </body>
 </html>
