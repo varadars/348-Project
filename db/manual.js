@@ -1,28 +1,25 @@
 // db/manualQueries.js
+const { col } = require('sequelize');
 const sequelize = require('./sequelize');
 
-// Example of a manual query
-async function shopList() {
+async function orderByColumn(columnName) {
   try {
-    const [results] = await sequelize.query('SELECT * FROM items WHERE on_grocery_list = true order by last_edited_for_list');
+    let query = `SELECT date, item_name, brand, quantity, unit, unit_price * quantity AS total FROM instances LEFT OUTER JOIN items ON instances.item_id = items.id`;
+    if(columnName){
+      query = `SELECT date, item_name, brand, quantity, unit, unit_price * quantity AS total
+                    FROM instances
+                    LEFT OUTER JOIN items ON instances.item_id = items.id
+                    ORDER BY ${columnName}`;
+    }
+    
+    const [results] = await sequelize.query(query);
     return results;
   } catch (error) {
-    console.error('Error executing shoplist query:', error);
-    throw error;
-  }
-}
-
-async function shopListStore(storeName) {
-  try {
-    const [results] = await sequelize.query('SELECT * FROM items WHERE on_grocery_list = true');
-    return results;
-  } catch (error) {
-    console.error('Error executing shopliststore query:', error);
+    console.error('Error executing orderByColumn query:', error);
     throw error;
   }
 }
 
 module.exports = {
-  shopList,
-  shopListStore
+  orderByColumn,
 };

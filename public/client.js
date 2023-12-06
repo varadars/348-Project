@@ -18,7 +18,7 @@ inputFieldEl.addEventListener("keypress", async function(event) {
 });
 
 async function addItem(){
-  await newItemForm(inputFieldEl.value);
+  await newItemForm(toTitleCase(inputFieldEl.value));
   inputFieldEl.value = "";
 }
 
@@ -33,7 +33,7 @@ async function pushToDB(data){
 
     inputFieldEl.value = "";
     
-    const response = await fetch('/api/insert', {
+    const response = await fetch('/api/insertitem', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -91,17 +91,55 @@ async function renderList() {
         for(let i = 0; i < data.length; i++){
           let listItemEl = document.createElement("li")
           
-          listItemEl.innerHTML = `<li class="item"> ${data[i]["item_name"]} </li> <li class="day"> since ${getRelativeDate(data[i]["last_edited_for_list"])} </li>`
+          listItemEl.innerHTML = `<li class="item"> ${data[i]["item_name"]} </li> <li class="day"> ${getRelativeDate(data[i]["last_edited_for_list"])} </li>`
           
-          listItemEl.addEventListener("dblclick", function() {
+          listItemEl.addEventListener("dblclick", async function() {
             // Use a valid and unique identifier for each user
             let item_name = data[i]["item_name"];
+            let itemId = data[i]["id"];
 
-            // Use the correct path for deletion
-            addOrRemoveFromGL(item_name, 0);
 
-            //remove the list item
-            listItemEl.remove();
+            const formPageURL = `instanceForm.html?itemId=${encodeURIComponent(itemId)}`;
+            const formWindow = window.open(formPageURL, 'Form Page');
+
+            window.removeOnly = async function() {
+              //remove the list item
+              listItemEl.remove();
+            }
+            
+            window.pushToInstance = async function(data) {
+
+              //add an instance
+
+              console.log(data.brand);
+
+              const instanceDataforInsert = {
+                date: new Date(),
+                brand: data.brand,
+                quantity: data.quantity,
+                unit_price: data.unit_price,
+                item_id: data.itemId,
+                store_id: 1,
+              };
+
+              const response = await fetch('/api/insertinstance', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(instanceDataforInsert),
+              });
+          
+              if (!response.ok) {
+                throw new Error(`Server responded with status: ${response.status}`);
+              }
+
+              //remove the list item
+              listItemEl.remove();
+
+              // Use the correct path for deletion
+              addOrRemoveFromGL(item_name, 0);
+            }
           })
           
           responseElement.append(listItemEl)
@@ -143,15 +181,84 @@ async function newItemForm(itemName){
   }
 }
 
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
 function getRelativeDate(dateFromRow) {
   let dateString = "";
   const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   let day = new Date(dateFromRow);
   //console.log(day);
 
-  const oneWeekAgo = new Date();
-  //oneWeekAgo.setDate(currentDate.getDate() - 7);
-
-  return weekday[day.getDay()];
+  return moment(dateFromRow, "").fromNow();
+  //return dateFromRow;
+  //return weekday[day.getDay()];
 }
+
+async function showDropdown() {
+  const response = await fetch('/api/allitems');
+  if (!response.ok) {
+    throw new Error(`Server responded with status: ${response.status}`);
+  }
+
+  // Display data on the HTML page
+  const data = await response.json();
+
+  let suggestions = [];
+
+  for(let i = 0; i < data.length; i++){
+    suggestions.push(data[i]["item_name"]);
+  }
+
+  //console.log(suggestions);
+
+  const inputField = document.getElementById('input-field');
+  const dropdownList = document.getElementById('dropdown-list');
+
+  const inputValue = inputField.value.toLowerCase();
+  const filteredSuggestions = suggestions.filter(suggestion =>
+    suggestion.toLowerCase().includes(inputValue)
+  );
+
+  // Clear previous suggestions
+  dropdownList.innerHTML = '';
+
+  // Display filtered suggestions
+  filteredSuggestions.forEach(suggestion => {
+    const dropdownItem = document.createElement('div');
+    dropdownItem.classList.add('dropdown-item');
+    dropdownItem.textContent = suggestion;
+    dropdownItem.addEventListener('click', () => {
+      inputField.value = suggestion;
+      hideDropdown();
+    });
+    dropdownList.appendChild(dropdownItem);
+  });
+
+  // Show the dropdown
+  dropdownList.style.display = filteredSuggestions.length > 0 ? 'block' : 'none';
+}
+
+function hideDropdown() {
+  const dropdownList = document.getElementById('dropdown-list');
+  dropdownList.style.display = 'none';
+}
+
+document.addEventListener('input', (event) => {
+  showDropdown();
+});
+
+// Close the dropdown when clicking outside of it
+document.addEventListener('click', event => {
+  const dropdownContainer = document.getElementById('dropdown-list');
+  if (!dropdownContainer.contains(event.target)) {
+    hideDropdown();
+  }
+});
 

@@ -17,15 +17,18 @@
 <body>
     <div class="container">
         <h1>add new item</h1>
-        <p id="var"></p>
+        <p id="var">form</p>
         <form id="item-form">
-            <label for="unit">Units ('boxes'):</label>
-            <input class = "select" type="text" id="unit" name="unit" required>
+            <div class="container">
+                <input class = "select" type="text" id="unit" placeholder="unit" name="unit" required>
 
-            <label for="min-viable-quantity">Average Quantity:</label>
-            <input class="select" type="number" id="min-viable-quantity" name="min_viable_quantity" required>
-
-            <button id="add-btn" type="submit">Add Item</button>
+                <input class="select" type="number" id="min-viable-quantity" placeholder="average quantity" name="min_viable_quantity" required>
+            </div>
+            
+            <div class="container">
+                <button id="add-btn" type="submit">Add Item</button>
+            </div>
+            
         </form>
     </div>
     

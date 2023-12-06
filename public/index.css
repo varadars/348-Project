@@ -23,6 +23,12 @@ img {
     height: 120px;
 }
 
+.storepic {
+    margin-top: 10px;
+    margin-bottom: 1px;
+    height: 110px;
+}
+
 p {
     margin-top: 0;
     margin-bottom: 25px;
@@ -62,36 +68,36 @@ button {
     box-shadow: 4px 4px 6px 2px rgba(0,0,0,0.15);
 }
 
-.shop {
-    background: linear-gradient(180deg, #F3B13E 50%, white 50%);
-}
-
-.shop:hover {
-    background: linear-gradient(180deg, #d09632 50%, rgb(227, 227, 227) 50%);
-}
-
-.dash {
-    background: linear-gradient(180deg, #FF7170 50%, white 50%);
-}
-
-.dash:hover {
-    background: linear-gradient(180deg, #d85757 50%, rgb(227, 227, 227) 50%);
-}
-
 .store {
-    background: linear-gradient(180deg, #EBE3A8 50%, white 50%);
+    background: linear-gradient(180deg, #F3B13E 65%, white 65%);
 }
 
 .store:hover {
-    background: linear-gradient(180deg, #bab274 50%, rgb(227, 227, 227) 50%);
+    background: linear-gradient(180deg, #d09632 65%, rgb(227, 227, 227) 65%);
+}
+
+.dash {
+    background: linear-gradient(180deg, #FF7170 65%, white 65%);
+}
+
+.dash:hover {
+    background: linear-gradient(180deg, #d85757 65%, rgb(227, 227, 227) 65%);
+}
+
+.shop {
+    background: linear-gradient(180deg, #EBE3A8 65%, white 65%);
+}
+
+.shop:hover {
+    background: linear-gradient(180deg, #bab274 65%, rgb(227, 227, 227) 65%);
 }
 
 .trip {
-    background: linear-gradient(180deg, #FFDDD9 50%, white 50%);
+    background: linear-gradient(180deg, #FFDDD9 65%, white 65%);
 }
 
 .trip:hover {
-    background: linear-gradient(180deg, #dbb1ac 50%, rgb(227, 227, 227) 50%);
+    background: linear-gradient(180deg, #dbb1ac 65%, rgb(227, 227, 227) 65%);
 }
 
 .columns {

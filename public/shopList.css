@@ -8,6 +8,22 @@ html, body {
     user-select: none;
 }
 
+p {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    font-size: 13px;
+    color: #4B4B4B;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 50px;
+    margin-bottom: 0;
+    color: #A49B9B;
+}
+
 title {
     font-family: 'PT Mono';
     src: url('./assets/fonts/PTMono-Regular.ttf') format('truetype');
@@ -22,7 +38,7 @@ img {
     display: flex;
     flex-direction: column;
     max-width: 320px;
-    margin: 30px auto;
+    margin: 10px auto;
     padding: 15px 15px 15px 15px;
 }
 
@@ -37,10 +53,8 @@ input {
     border-style: none;
     border-radius: 8px;
     font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
     padding: 15px;
-    text-align: center;
+    text-align: center;   
 }
 
 button {
@@ -51,6 +65,7 @@ button {
     border-radius: 8px;
     font-size: 20px;
     text-align: center;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -123,4 +138,24 @@ ul li:hover {
 
 ul li li:hover {
     border-style: none;
+}
+
+#dropdown-list {
+    display: none;
+    background-color: #b7bdca;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.dropdown-container {
+    padding: 0px;
+    margin: 0px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+    padding: 8px;
+    align-self: center;
 }

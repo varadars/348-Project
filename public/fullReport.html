@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="shopList.css">
+    <link rel="stylesheet" href="fullReport.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -14,20 +14,21 @@
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    
-    <div class="container">
-        <h1>the list</h1>
-        <p>everywhere</p>
-        <input type="text" id="input-field" placeholder="+ blueberries">
-        <div id="dropdown-list"></div>
-        <button id="add-button">Add to cart</button>
-        <div class="container">
-            <ul id="shopping-list">
-                <!-- Your shopping list items will be dynamically added here -->
-            </ul>
-        </div>
+    <div class="tablewrap">
+        <h1>dashboard</h1>
+        <p>only available on desktop</p>
+        <table id="rows" class="groceries">
+            <tr>
+                <th id="date">date</th>
+                <th id="item-name">item name</th>
+                <th id="category">category</th>
+                <th id="brand">brand</th>
+                <th id="quantity">quantity/unit</th>
+                <th id="total">total price</th>
+            </tr>
+        </table>
     </div>
-    <script src="client.js" type="module"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="fullReport.js" type="module"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

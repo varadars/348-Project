@@ -1,0 +1,88 @@
+html, body {
+    margin-top: 0;
+    padding-top: 0;
+    font-family: 'PT Mono';
+    src: url('./assets/fonts/PTMono-Regular.ttf') format('truetype');
+    background-color: #bad0f1;
+    user-select: none;
+    min-width: 1000px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    font-size: 13px;
+    color: #727272;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 50px;
+    margin-bottom: 0;
+    color: #A49B9B;
+}
+
+
+.tablewrap {
+    margin: 50px 100px 0px 100px;
+    text-align: center;
+}
+.groceries {
+    border-collapse: collapse;
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0 7px; 
+    margin-top: -5px;
+}
+  
+.groceries td, #groceries th {
+    text-align: center;
+    border: solid 1px #727272;
+    border-style: solid none;
+    padding: 10px;
+}
+
+.groceries tr{
+    background-color: #DCE1EB;
+}
+
+.groceries tr:hover {
+    background-color: #727272;
+    color: white;
+}
+  
+.groceries th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #FFAD05;
+    color: #5b5353;
+    font-size: 18px;
+}
+
+td {
+    border: solid 1px #000;
+    border-style: solid none;
+    padding: 10px;
+}
+th:first-child {
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px;
+}
+
+th:last-child {
+    border-top-right-radius: 10px; 
+    border-bottom-right-radius: 10px;
+}
+
+td:first-child {
+    border-left-style: solid;
+    border-top-left-radius: 5px; 
+    border-bottom-left-radius: 5px;
+}
+td:last-child {
+    border-right-style: solid;
+    border-bottom-right-radius: 5px; 
+    border-top-right-radius: 5px; 
+}

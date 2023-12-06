@@ -20,29 +20,32 @@ const Instance = sequelize.define('Instance', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+  // Foreign key to Item model
+  item_id: {
+    type: DataTypes.INTEGER, // Adjust the data type based on the type of Item's primary key
+    allowNull: false,
+  },
+  // Foreign key to Store model
+  store_id: {
+    type: DataTypes.INTEGER, // Adjust the data type based on the type of Store's primary key
+    allowNull: false,
+  },
 });
 
 // Function to insert data into the 'instances' table
 async function insertInstanceData(instanceData) {
-    try {
-      const newInstance = await Instance.create(instanceData);
-      return newInstance.toJSON();
-    } catch (error) {
-      console.error('Error inserting instance:', error);
-      throw error;
-    }
+  try {
+    const newInstance = await Instance.create(instanceData);
+    return newInstance.toJSON();
+  } catch (error) {
+    console.error('Error inserting instance:', error);
+    throw error;
   }
-  
-// Sync the model with the database
+}
+
 sequelize.sync();
 
 module.exports = {
-    Instance,
-    insertInstanceData,
+  Instance,
+  insertInstanceData,
 };
-
-Instance.belongsTo(Item);
-Item.hasMany(Instance);
-
-Instance.belongsTo(Store);
-Store.hasMany(Instance);

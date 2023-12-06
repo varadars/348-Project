@@ -35,28 +35,6 @@ async function insertItemData(itemData) {
     }
 }
 
-async function checkIfItemExists(itemName) {
-  try {
-    const item = await Item.findOne({
-      where: {
-        item_name: itemName,
-      },
-    });
-
-    // If item is found, it exists
-    if (item) {
-      console.log(`Item "${itemName}" exists.`);
-      return true;
-    } else {
-      console.log(`Item "${itemName}" does not exist.`);
-      return false;
-    }
-  } catch (error) {
-    console.error('Error checking item existence:', error);
-    throw error;
-  }
-}
-
 async function updateItemOnGroceryList(itemName, onGroceryListValue) {
   try {
     const updatedItem = await Item.update(
@@ -80,13 +58,11 @@ async function updateItemOnGroceryList(itemName, onGroceryListValue) {
   }
 }
 
-  
 // Sync the model with the database
 sequelize.sync();
 
 module.exports = {
     Item,
     insertItemData,
-    checkIfItemExists,
     updateItemOnGroceryList,
 };
