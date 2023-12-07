@@ -1,9 +1,22 @@
 // instanceForm.js
 const addButtonEl = document.getElementById('add-btn');
+const remButtonEl = document.getElementById('rem-btn');
 addButtonEl.addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default form submission
     returnItemData();
 });
+
+remButtonEl.addEventListener('click', function(event) {
+    // Check if the opener exists and has the expected function
+    console.log(window.opener.removeOnly);
+    if (window.opener && window.opener.removeOnly) {
+        window.opener.removeOnly();
+        window.close(); // Close the current window
+    } else {
+        console.error('Error: Unable to return item data to the opener.');
+    }
+});
+
 
 function returnItemData() {
     const brand = document.getElementById('brand').value;

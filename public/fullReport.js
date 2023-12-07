@@ -10,39 +10,35 @@ const brandEl = document.getElementById('brand');
 const quantEl = document.getElementById('quantity');
 const totalEl = document.getElementById('total');
 
-dateEl.addEventListener('click', async function() {
-    const data = await getData('date');
-    loadTable(data);
-});
-
-itemNameEl.addEventListener('click', async function() {
-    const data = await getData('item_name');
-    loadTable(data);
-});
+dateEl.addEventListener('click', () => handleClick('date', 0));
+dateEl.addEventListener('dblclick', () => handleClick('date', 1));
+itemNameEl.addEventListener('click', () => handleClick('item_name', 0));
+itemNameEl.addEventListener('dblclick', () => handleClick('item_name', 1));
+brandEl.addEventListener('click', () => handleClick('brand', 0));
+brandEl.addEventListener('dblclick', () => handleClick('brand', 1));
+quantEl.addEventListener('click', () => handleClick('quantity', 0));
+quantEl.addEventListener('dblclick', () => handleClick('quantity', 1));
+totalEl.addEventListener('click', () => handleClick('total', 0));
+totalEl.addEventListener('dblclick', () => handleClick('total', 1));
 
 // categoryEl.addEventListener('click', async function() {
 //     const data = await getData('category');
 //     loadTable(data);
 // });
 
-brandEl.addEventListener('click', async function() {
-    const data = await getData('brand');
+const handleClick = async (colName, descValue) => {
+    const data = await getData(colName, descValue);
     loadTable(data);
-});
+};
 
-quantEl.addEventListener('click', async function() {
-    const data = await getData('quantity');
-    loadTable(data);
-});
-
-totalEl.addEventListener('click', async function() {
-    const data = await getData('total');
-    loadTable(data);
-});
-
-async function getData(columnName){
+async function getData(columnName, desc){
     try {
-        const fetchString = '/api/allinstances?columnName=' + columnName;
+        const params = new URLSearchParams({
+            columnName: columnName,
+            descVal: desc
+        });
+
+        const fetchString = `/api/allinstances?${params.toString()}`;
         const response = await fetch(fetchString, {
             method: 'GET',
             headers: {

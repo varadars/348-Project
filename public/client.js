@@ -105,6 +105,9 @@ async function renderList() {
             window.removeOnly = async function() {
               //remove the list item
               listItemEl.remove();
+
+              // Use the correct path for deletion
+              addOrRemoveFromGL(item_name, 0);
             }
             
             window.pushToInstance = async function(data) {

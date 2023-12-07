@@ -52,7 +52,7 @@ app.get('/api/allinstances', async (req, res) => {
     let sequelizeInstances = "";
 
     if(req.query.columnName != 'undefined'){
-      sequelizeInstances = await orderByColumn(req.query.columnName);
+      sequelizeInstances = await orderByColumn(req.query.columnName, req.query.descVal);
       console.log(req.query.columnName);
     } else {
       sequelizeInstances = await orderByColumn();
