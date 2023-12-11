@@ -1,0 +1,97 @@
+html, body {
+    font-family: 'PT Mono';
+    src: url('./assets/fonts/PTMono-Regular.ttf') format('truetype');
+    background-color: #bad0f1;
+    user-select: none;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding: 0;
+    font-size: 13px;
+    color: #727272;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 50px;
+    margin-bottom: 0;
+    color: #A49B9B;
+    margin: auto;
+}
+
+.tablewrap {
+    width: 89%;
+    align-content: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.everything {
+    margin: 100px auto 100px auto;
+    width: 400px;
+    text-align: center;
+}
+
+.storeList {
+    margin: 10px auto 10px auto;
+}
+
+button {
+    color: #4B4B4B;
+    background-color: #FFAD05;
+    padding: 15px;
+    margin: 5px;
+    border-style: solid;
+    border: 2px;
+    border-color: rgba(0,0,0,0);
+    border-radius: 8px;
+    font-size: 20px;
+    text-align: center;
+}
+
+button:hover {
+    color: #fefefe;
+    background-color: #d95358;
+    border: 2px;
+    border-style: solid;
+    border-color: white;
+}
+
+input {
+    width: 100%;
+    color: #1d0e04;
+    background-color: #DCE1EB;
+    border-style: none;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;   
+    margin: 10px auto auto auto;
+}
+
+#dropdown-list {
+    width: 100%;
+    display: none;
+    background-color: #b7bdca;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.dropdown-container {
+    padding: 0px;
+    margin: 0px;
+}
+
+.dropdown-item {
+    width: 100%;
+    cursor: pointer;
+    padding: 8px;
+    align-self: left;
+    text-align: left;
+}

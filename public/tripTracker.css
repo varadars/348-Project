@@ -1,0 +1,44 @@
+html, body {
+    margin-top: 0;
+    padding-top: 0;
+    font-family: 'PT Mono';
+    src: url('./assets/fonts/PTMono-Regular.ttf') format('truetype');
+    background-color: #bad0f1;
+    user-select: none;
+    min-width: 1000px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    font-size: 13px;
+    color: #727272;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 50px;
+    margin-bottom: 0;
+    color: #A49B9B;
+}
+
+.tablewrap {
+    margin: 50px 100px 0px 100px;
+    text-align: center;
+}
+
+button {
+    color: #fefefe;
+    background-color: #FFAD05;
+    border: 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #bc7f03;
+}

@@ -8,6 +8,16 @@ html, body {
     min-width: 1000px;
 }
 
+.cal {
+    width: 300px;
+    border: 0;
+    border-style: none;
+}
+
+.drops {
+    margin-bottom: 20px;
+}
+
 p {
     margin-top: 0;
     margin-bottom: 25px;
@@ -25,7 +35,7 @@ h1 {
 
 
 .tablewrap {
-    margin: 50px 100px 0px 100px;
+    margin: 50px 100px 50px 100px;
     text-align: center;
 }
 .groceries {

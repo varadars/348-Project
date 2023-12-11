@@ -22,6 +22,11 @@ const Item = sequelize.define('Item', {
   last_edited_for_list: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
+  },
+  // Foreign key to category model
+  category_id: {
+    type: DataTypes.INTEGER, // Adjust the data type based on the type of Item's primary key
+    allowNull: false,
   }
 });
 

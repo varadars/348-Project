@@ -2,9 +2,17 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db/sequelize');
 
 const Category = sequelize.define('Category', {
+  category_id: {
+    type: DataTypes.INTEGER, // You can use INTEGER or UUID based on your requirements
+    allowNull: false,
+    autoIncrement: true,
+    unique: true,
+    primaryKey: true,
+  },
   category_name: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   category_icon: {
     type: DataTypes.BLOB('long'),
@@ -12,7 +20,8 @@ const Category = sequelize.define('Category', {
   },
   category_type: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: "good"
   },
 });
 

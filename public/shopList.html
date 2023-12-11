@@ -14,15 +14,22 @@
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    
+    <div id="topbar" class="topbar">
+        <p class="bartext" id="topbartext">in-store mode</p>
+    </div>
     <div class="container">
         <h1>the list</h1>
-        <p>everywhere</p>
+        <p id="subtitle">everywhere</p>
         <input type="text" id="input-field" placeholder="+ blueberries">
         <div id="dropdown-list"></div>
         <button id="add-button">Add to cart</button>
         <div class="container">
+            <p id="this-store" class="hide">items usually purchased in this store</p>
             <ul id="shopping-list">
+                <!-- Your shopping list items will be dynamically added here -->
+            </ul>
+            <p id="not-this-store" class="hide">other items</p>
+            <ul id="not-store-shopping-list">
                 <!-- Your shopping list items will be dynamically added here -->
             </ul>
         </div>

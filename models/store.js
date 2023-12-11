@@ -3,9 +3,11 @@ const sequelize = require('../db/sequelize');
 
 const Store = sequelize.define('Store', {
   store_id: {
-    type: DataTypes.STRING, // You can use INTEGER or UUID based on your requirements
+    type: DataTypes.INTEGER, // You can use INTEGER or UUID based on your requirements
     allowNull: false,
+    autoIncrement: true,
     unique: true,
+    primaryKey: true,
   },
   store_name: {
     type: DataTypes.STRING,

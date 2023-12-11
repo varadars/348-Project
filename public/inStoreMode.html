@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fullReport.css">
+    <link rel="stylesheet" href="inStoreMode.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -14,9 +14,15 @@
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <div class="tablewrap">
-        <h1>coming soon</h1>
+    <div class="everything">
+        <h1>choose store</h1>
         <p>in-store mode</p>
+        <div class="tablewrap">
+            <div id="storeList" class="storeList"></div>
+            <input type="text" id="store" placeholder="new store">
+            <div id="dropdown-list"></div>
+        </div>
     </div>
+    <script src="./inStoreMode.js" type="module"></script>
 </body>
 </html>

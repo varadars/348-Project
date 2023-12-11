@@ -19,14 +19,29 @@ h1 {
 }
 
 img {
-    margin: 0;
-    height: 120px;
+    margin-top: -10px;
+    height: 130px;
+
+}
+
+.monchpic {
+    width: 110px; 
+    height: 110px; 
+    object-fit: cover;
+    object-position: 90% 25%;
+    margin: 10px 5px 0px 0px;
 }
 
 .storepic {
     margin-top: 10px;
     margin-bottom: 1px;
     height: 110px;
+}
+
+.dashpic {
+    margin-top: 5px;
+    margin-bottom: -5px;
+    height: 120px;
 }
 
 p {
@@ -55,7 +70,6 @@ button {
     height: 150px;
     width: 150px;
     margin: 10px;
-    
     font-size: 15px;
     font-weight: 50;
     color: black;
@@ -68,11 +82,11 @@ button {
     box-shadow: 4px 4px 6px 2px rgba(0,0,0,0.15);
 }
 
-.store {
+.shop {
     background: linear-gradient(180deg, #F3B13E 65%, white 65%);
 }
 
-.store:hover {
+.shop:hover {
     background: linear-gradient(180deg, #d09632 65%, rgb(227, 227, 227) 65%);
 }
 
@@ -84,20 +98,20 @@ button {
     background: linear-gradient(180deg, #d85757 65%, rgb(227, 227, 227) 65%);
 }
 
-.shop {
+.trip {
     background: linear-gradient(180deg, #EBE3A8 65%, white 65%);
 }
 
-.shop:hover {
+.trip:hover {
     background: linear-gradient(180deg, #bab274 65%, rgb(227, 227, 227) 65%);
 }
 
-.trip {
-    background: linear-gradient(180deg, #FFDDD9 65%, white 65%);
+.store {
+    background: linear-gradient(180deg, #a0bf75 65%, white 65%);
 }
 
-.trip:hover {
-    background: linear-gradient(180deg, #dbb1ac 65%, rgb(227, 227, 227) 65%);
+.store:hover {
+    background: linear-gradient(180deg, #809760 65%, rgb(227, 227, 227) 65%);
 }
 
 .columns {

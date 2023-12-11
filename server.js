@@ -5,16 +5,41 @@ const port = process.env.PORT || 3000;
 const db = require('./db/db');
 const bodyParser = require('body-parser');
 
-const { Store, insertStoreData } = require('./models/store')
+const { Store } = require('./models/store')
 const { Item, insertItemData, updateItemOnGroceryList } = require('./models/item');
 const { Instance, insertInstanceData} = require('./models/instance');
+const { Category } = require('./models/category')
 
-const { orderByColumn } = require('./db/manual');
+const { orderByColumn, getTrips } = require('./db/manual');
 const sequelize = require('./db/sequelize');
 
+// Create an index on the item_name column
+Item.addIndex('item_name_index', ['item_name']);
+
+// Create a multi-column index on date, item_id, and store_id
+Instance.addIndex('date_item_store_index', ['date', 'item_id', 'store_id']);
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+app.get('/api/mostrecentinstance/:itemId', async (req, res) => {
+  try {
+    const yourItemId = req.params.itemId;
+    // Using manual query function to fetch users
+    const recentItem = await Instance.findAll({
+      where: {
+        item_id: yourItemId, // Replace yourItemId with the actual value
+      },
+      order: [['date', 'DESC']], // Order by date in descending order
+      limit: 1, // Limit to only one result (the most recent entry)
+    });
+
+    res.json(recentItem);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 app.get('/api/data', async (req, res) => {
   try {
@@ -32,6 +57,65 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
+app.get('/api/getOrCreateStoreId/:storeName', async (req, res) => {
+  const storeName = req.params.storeName;
+
+  try {
+    // Check if the store already exists
+    let store = await Store.findOne({
+      attributes: ['store_id'],
+      where: {
+        store_name: storeName,
+      },
+    });
+
+    if (!store) {
+      // If the store doesn't exist, create a new one
+      const newStore = await Store.create({
+        store_name: storeName,
+        // Add other properties as needed
+      });
+
+      store = newStore; // Use the newly created store
+    }
+
+    res.json({ store_id: store.store_id });
+  } catch (error) {
+    console.error('Error getting or creating store id:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/getOrCreateCategory/:category', async (req, res) => {
+  const categoryName = req.params.category;
+
+  try {
+    // Check if the store already exists
+    let category = await Category.findOne({
+      attributes: ['category_id'],
+      where: {
+        category_name: categoryName,
+      },
+    });
+
+    if (!category) {
+      // If the store doesn't exist, create a new one
+      const newCategory = await Category.create({
+        category_name: categoryName,
+        // Add other properties as needed
+      });
+
+      category = newCategory; // Use the newly created store
+    }
+
+    res.json({ category_id: category.category_id });
+  } catch (error) {
+    console.error('Error getting or creating store id:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 app.get('/api/allitems', async (req, res) => {
   try {
     // Using Sequelize model to fetch users
@@ -39,6 +123,46 @@ app.get('/api/allitems', async (req, res) => {
 
     //console.log(sequelizeUsers)
     res.json(sequelizeItems);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/allcategories', async (req, res) => {
+  try {
+    // Using Sequelize model to fetch users
+    const sequelizeCategories = await Category.findAll();
+
+    //console.log(sequelizeUsers)
+    res.json(sequelizeCategories);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/allstores', async (req, res) => {
+  try {
+    // Using Sequelize model to fetch users
+    const sequelizeStores = await Store.findAll();
+
+    //console.log(sequelizeUsers)
+    res.json(sequelizeStores);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/gettrips', async (req, res) => {
+  try {
+    // Using Sequelize model to fetch users
+
+    let trips = "";
+    trips = await getTrips();
+    res.json(trips);
+    
   } catch (err) {
     console.error('Error fetching data:', err);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -57,8 +181,6 @@ app.get('/api/allinstances', async (req, res) => {
     } else {
       sequelizeInstances = await orderByColumn();
     }
-    
-
     //console.log(sequelizeUsers)
     res.json(sequelizeInstances);
   } catch (err) {

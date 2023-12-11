@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="fullReport.css">
+    <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -17,6 +19,15 @@
     <div class="tablewrap">
         <h1>dashboard</h1>
         <p>only available on desktop</p>
+        <div class = "drops">
+            <jsuites-calendar id = "start-date" class = "cal" value="2023-12-10" format="DD/MM/YYYY"></jsuites-calendar>
+            <jsuites-calendar id = "end-date" class = "cal" value="2023-12-20" format="DD/MM/YYYY"></jsuites-calendar>
+            <select name="Category" id="categorySelect">
+            </select>
+            <select name="Item" id="itemNameSelect">
+            </select>
+        </div>
+        
         <table id="rows" class="groceries">
             <tr>
                 <th id="date">date</th>
@@ -24,11 +35,24 @@
                 <th id="category">category</th>
                 <th id="brand">brand</th>
                 <th id="quantity">quantity/unit</th>
+                <th id="price">price</th>
                 <th id="total">total price</th>
             </tr>
         </table>
     </div>
     <script src="fullReport.js" type="module"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://jsuites.net/v4/jsuites.js"></script>
+    <script src="https://jsuites.net/v4/jsuites.webcomponents.js"></script>
+    <script>
+        document.querySelector('jsuites-calendar').addEventListener('onchange', function(e) {
+            console.log('New value: ' + e.target.value);
+        });
+        document.querySelector('jsuites-calendar').addEventListener('onclose', function(e) {
+            console.log('Calendar is closed');
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://jsuites.net/v4/jsuites.js"></script>
 </body>
 </html>
