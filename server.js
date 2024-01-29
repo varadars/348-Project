@@ -14,10 +14,10 @@ const { orderByColumn, getTrips } = require('./db/manual');
 const sequelize = require('./db/sequelize');
 
 // Create an index on the item_name column
-Item.addIndex('item_name_index', ['item_name']);
+//Item.addIndex('item_name_index', ['item_name']);
 
 // Create a multi-column index on date, item_id, and store_id
-Instance.addIndex('date_item_store_index', ['date', 'item_id', 'store_id']);
+//Instance.addIndex('date_item_store_index', ['date', 'item_id', 'store_id']);
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
