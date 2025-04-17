@@ -10,7 +10,7 @@ const { Sequelize } = require('sequelize');
 //   }
 // });
 
-const sequelize = new Sequelize('jsMysql', process.env.DB_USERNAME, process.env.DB_USERNAME, {
+const sequelize = new Sequelize('jsMysql', process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: 'localhost',
   dialect: 'mysql',
   define: {
@@ -28,6 +28,7 @@ async function testConnection() {
   }
 }
 
-testConnection();
+console.log(process.env.DB_USERNAME);
+//testConnection();
 
 module.exports = sequelize;
