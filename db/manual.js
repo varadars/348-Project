@@ -18,8 +18,6 @@ async function getTrips() {
   }
 }
 
-
-
 async function orderByColumn(columnName, desc, whereClause) {
   try {
     let query = `SELECT date, item_name, brand, category_name AS category, quantity, unit, unit_price, unit_price * quantity AS total 
