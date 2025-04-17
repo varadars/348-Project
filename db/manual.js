@@ -21,9 +21,9 @@ async function getTrips() {
 async function orderByColumn(columnName, desc, whereClause) {
   try {
     let query = `SELECT date, item_name, brand, category_name AS category, quantity, unit, unit_price, unit_price * quantity AS total 
-                    FROM instances 
-                    JOIN items ON instances.item_id = items.id
-                    JOIN categories ON items.category_id = categories.category_id`;
+                    FROM Instances 
+                    JOIN Items ON Instances.item_id = Items.id
+                    JOIN Categories ON Items.category_id = Categories.category_id`;
 
     if (whereClause) {
       query += ` WHERE ${whereClause}`;
