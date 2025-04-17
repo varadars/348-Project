@@ -226,10 +226,16 @@ app.put('/api/update-grocery-list/:itemName', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-  sequelize.sync();
-});
+(async () => {
+  try {
+    await sequelize.sync(); // Creates tables if they don't exist
+    app.listen(port, () => {
+      console.log(`Server is running at http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error('Error syncing database:', error);
+  }
+})();
 
 // API endpoint to handle inserting data
 app.post('/api/insertitem', async (req, res) => {

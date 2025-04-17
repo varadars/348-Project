@@ -10,9 +10,9 @@ const { Sequelize } = require('sequelize');
 //   }
 // });
 
-const sequelize = new Sequelize('***', '***', '***', {
-  host: '***',
-  dialect: '***',
+const sequelize = new Sequelize('jsMysql', process.env.DB_USERNAME, process.env.DB_USERNAME, {
+  host: 'localhost',
+  dialect: 'mysql',
   define: {
     timestamps: false
   }
